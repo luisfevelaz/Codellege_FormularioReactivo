@@ -1,0 +1,94 @@
+<h4>Validación de Formularios <small>Formulario reactivo</small></h4>
+<hr>
+<form autocomplete="off" [formGroup]="form" (ngSubmit)="enviar()">
+    <div>
+        <!--------- Primer input ------------->
+        <div class="form-group row">
+            <label for="nombre" class="col-2 col-form-label">Nombre: </label>
+            <div class="col-8">
+                <input type="text" class="form-control" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="validNombre">
+                <div class="invalid-feedback" *ngIf="validNombre">Dato erróneo</div>
+            </div>
+           
+        </div>
+        <!--------- Segundo input ------------->
+        <div class="form-group row">
+            <label for="apellido" class="col-2 col-form-label">Apellido: </label>
+            <div class="col-8">
+                <input type="text" class="form-control" placeholder="Apellido" formControlName="apellido" [class.is-invalid]="validApellido">
+                <div class="invalid-feedback" *ngIf="validApellido">Dato erróneo</div>
+            </div>
+        </div>
+        <!--------- Tercer input ------------->
+        <div class="form-group row">
+            <label for="email" class="col-2 col-form-label">Email: </label>
+            <div class="col-8">
+                <input type="email" class="form-control" placeholder="ejemplo@email.com" formControlName="correo" [class.is-invalid]="validCorreo">
+                <div class="invalid-feedback" *ngIf="validCorreo">Dato erróneo</div>
+            </div>
+        </div>
+        <!-- Validacion personalizada Password -->
+        <div class="row form-group">
+            <label for="" class="col-2 col-form-label">Contraseña: </label>
+            <div class="col-8">
+                <input type="text" class="form-control" placeholder="contraseña" formControlName="pass1" [class.is-invalid]="Pass1">
+            </div>
+        </div>
+        <div class="row form-group">
+            <label for="" class="col-2 col-form-label">Confirmar contraseña: </label>
+            <div class="col-8">
+                <input type="text" class="form-control" placeholder="confirmar contraseña" formControlName="pass2" [class.is-invalid]="Pass2">
+            </div>
+        </div>
+        <!--------- gpo controles ------------->
+        <div class="form-group row" formGroupName="direccion">
+            <label for="" class="col-2 col-form-label">Dirección: </label>
+            <div class="form-row col-8">
+                <div class="col"> 
+                    <input type="text" class="form-control" placeholder="Estado" formControlName="estado" [class.is-invalid]="validEstado">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Municipio" formControlName="municipio" [class.is-invalid]="validMu">
+                </div>
+            </div>
+        </div>
+
+        <!-- Arreglo de controles -->
+        <div class="row">
+            <div class="col-10">
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Id</th>
+                            <th>Pasatiempo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <!-- Contenedor del FormArray -->
+                    <tbody formArrayName="pasatiempo">
+                        <!-- Reproducir el tr según la longitud del FormArray -->
+                        <tr *ngFor="let control of arrayPasa.controls; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>
+                                <input type="text" class="form-control" [formControlName]="i" placeholder="Pasatiempo {{i+1}}">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-block" (click)="removeControl(i)">Borrar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary btn-block my-3" (click)="newControl()">Agregar pasatiempo</button>
+            </div>
+        </div>
+
+        <!--------- Botón Enviar ------------->
+        <div class="form-group row">
+            <!-- <label for="email" class="col-2 col-form-label">Email: </label> -->
+            <div class="col-10 input-group">
+                <button class="btn btn-outline-success btn-block" type="submit">Guardar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
